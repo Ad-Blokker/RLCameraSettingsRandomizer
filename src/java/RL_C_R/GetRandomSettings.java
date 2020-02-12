@@ -17,7 +17,7 @@ import java.util.Random;
 
 /**
  *
- * @author mblok
+ * @author Mark Blokker ~ Ad-Blokker
  */
 public class GetRandomSettings extends HttpServlet {
 
@@ -38,7 +38,9 @@ public class GetRandomSettings extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RLCameraRandomizer</title>");            
+            out.println("<title>Servlet RLCameraRandomizer</title>");
+            out.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+            out.println("<meta charset=\"utf-8\">");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>You are not supposed to be here!</h1>");
@@ -72,12 +74,14 @@ public class GetRandomSettings extends HttpServlet {
         Random randNumber = new Random();
         
         int fovRandom = randNumber.nextInt(fovMax - fovMin) + fovMin;
-        int distanceRandom = randNumber.nextInt(distanceMax - fovMin) + distanceMin;
+        int distanceRandom = randNumber.nextInt(distanceMax - distanceMin) + distanceMin;
         int heightRandom = randNumber.nextInt(heightMax - heightMin) + heightMin;
         int angleRandom = randNumber.nextInt(15); //AngleMin = -15, AngleMac = 0, Steps of 1
-        double stiffnessRandom = randNumber.nextDouble(); //stiffnessMin = 0, stiffnessMax = 1, Steps of 0.05
+        
+        double stiffnessRandom = StrangeNumbersGen.Generate(0.05, 1, 0); //stiffnessMin = 0, stiffnessMax = 1, Steps of 0.05
+        
         double swivelspeedRandom = randNumber.nextInt(100) + 1; //swivelspeedMin = 1, swivelspeedMax = 10, Steps of 0.10
-        double transitionspeedRandom = randNumber.nextDouble(); //transitionspeedMin = 1, transitionspeedMax = 2, Steps of 0.10
+        double transitionspeedRandom = StrangeNumbersGen.Generate(0.10, 2, 1); //transitionspeedMin = 1, transitionspeedMax = 2, Steps of 0.10
         
         DecimalFormat df = new DecimalFormat("####0.00");
         
@@ -85,25 +89,26 @@ public class GetRandomSettings extends HttpServlet {
         heightRandom = (int) (Math.round(heightRandom/10.0) * 10);
         
         swivelspeedRandom /= 10;
-        transitionspeedRandom += 1;
         
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>RL Random Camera Settings</title>");            
+            out.println("<title>RL Random Camera Settings</title>");    
+            out.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+            out.println("<meta charset=\"utf-8\">");
             out.println("</head>");
             out.println("<body>");
             out.println("<h2>Rocket League random camera settings generator</h2>");
             out.println("<button onClick=\"window.location.reload();\">Generate new settings</button><br><br>");
-            out.println("FOV: " + fovRandom + "<br>");
+            out.println("<h3>FOV: " + fovRandom + "<br>");
             out.println("Distance: " + distanceRandom + "<br>");
             out.println("Height: " + heightRandom + "<br>");
             out.println("Angle: -" + angleRandom + "<br>");
             out.println("Stiffness: " + df.format(stiffnessRandom) + "<br>");
             out.println("Swivel Speed: " + swivelspeedRandom + "<br>");
-            out.println("Transition Speed: " + df.format(transitionspeedRandom) + "<br>");
+            out.println("Transition Speed: " + df.format(transitionspeedRandom) + "<br></h3>");
             out.println("</body>");
             out.println("</html>");
             
