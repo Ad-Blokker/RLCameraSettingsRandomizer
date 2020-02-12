@@ -90,30 +90,19 @@ public class GetRandomSettings extends HttpServlet {
         
         swivelspeedRandom /= 10;
         
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>RL Random Camera Settings</title>");    
-            out.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-            out.println("<meta charset=\"utf-8\">");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h2>Rocket League random camera settings generator</h2>");
-            out.println("<button onClick=\"window.location.reload();\">Generate new settings</button><br><br>");
-            out.println("<h3>FOV: " + fovRandom + "<br>");
-            out.println("Distance: " + distanceRandom + "<br>");
-            out.println("Height: " + heightRandom + "<br>");
-            out.println("Angle: -" + angleRandom + "<br>");
-            out.println("Stiffness: " + df.format(stiffnessRandom) + "<br>");
-            out.println("Swivel Speed: " + swivelspeedRandom + "<br>");
-            out.println("Transition Speed: " + df.format(transitionspeedRandom) + "<br></h3>");
-            out.println("</body>");
-            out.println("</html>");
-            
-            
-        }
+        String stiffnessRandomFormatted = df.format(stiffnessRandom);
+        String transitionspeedRandomFormatted = df.format(transitionspeedRandom);
+        
+        request.setAttribute("fov", fovRandom);
+        request.setAttribute("distance", distanceRandom);
+        request.setAttribute("height", heightRandom);
+        request.setAttribute("angle", angleRandom);
+        request.setAttribute("stiffness", stiffnessRandomFormatted);
+        request.setAttribute("swivelspeed", swivelspeedRandom);
+        request.setAttribute("transitionspeed", transitionspeedRandomFormatted);
+        
+        request.getRequestDispatcher("result.jsp").forward(request, response);
+               
         
     }
 
