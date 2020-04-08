@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2020 Mark Blokker ~ Ad-Blokker
  */
 package RL_C_R;
 
@@ -16,7 +14,6 @@ import java.util.Random;
 
 
 /**
- *
  * @author Mark Blokker ~ Ad-Blokker
  */
 public class GetRandomSettings extends HttpServlet {
@@ -34,7 +31,6 @@ public class GetRandomSettings extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -102,8 +98,7 @@ public class GetRandomSettings extends HttpServlet {
         request.setAttribute("transitionspeed", transitionspeedRandomFormatted);
         
         request.getRequestDispatcher("result.jsp").forward(request, response);
-               
-        
+                    
     }
 
     /**
